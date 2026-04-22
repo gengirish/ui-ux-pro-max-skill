@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:products.row",
+  "title": "UI/UX Pro Max — products.csv row",
+  "description": "One row of products.csv mapping product types to style and pattern recommendations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Product Type",
+    "Keywords",
+    "Primary Style Recommendation",
+    "Secondary Styles",
+    "Landing Page Pattern",
+    "Dashboard Style (if applicable)",
+    "Color Palette Focus",
+    "Key Considerations"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Product Type": { "type": "string", "minLength": 1 },
+    "Keywords": { "type": "string", "minLength": 1 },
+    "Primary Style Recommendation": { "type": "string", "minLength": 1 },
+    "Secondary Styles": { "type": "string", "minLength": 1 },
+    "Landing Page Pattern": { "type": "string", "minLength": 1 },
+    "Dashboard Style (if applicable)": { "type": "string", "minLength": 1 },
+    "Color Palette Focus": { "type": "string", "minLength": 1 },
+    "Key Considerations": { "type": "string", "minLength": 1 }
+  }
+}

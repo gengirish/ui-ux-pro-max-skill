@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:styles.row",
+  "title": "UI/UX Pro Max — styles.csv row",
+  "description": "One row of styles.csv. Columns like Light/Dark mode use heterogeneous symbolic text (not simple booleans); see property descriptions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Style Category",
+    "Type",
+    "Keywords",
+    "Primary Colors",
+    "Secondary Colors",
+    "Effects & Animation",
+    "Best For",
+    "Do Not Use For",
+    "Light Mode ✓",
+    "Dark Mode ✓",
+    "Performance",
+    "Accessibility",
+    "Mobile-Friendly",
+    "Conversion-Focused",
+    "Framework Compatibility",
+    "Era/Origin",
+    "Complexity",
+    "AI Prompt Keywords",
+    "CSS/Technical Keywords",
+    "Implementation Checklist",
+    "Design System Variables"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1, "description": "Stable row id." },
+    "Style Category": { "type": "string", "minLength": 1 },
+    "Type": { "type": "string", "minLength": 1 },
+    "Keywords": { "type": "string", "minLength": 1 },
+    "Primary Colors": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Prose, lists, and hex values; not a single swatch. Future work: split into structured color tokens."
+    },
+    "Secondary Colors": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Prose and hex; heterogeneous content by design."
+    },
+    "Effects & Animation": { "type": "string", "minLength": 1 },
+    "Best For": { "type": "string", "minLength": 1 },
+    "Do Not Use For": { "type": "string", "minLength": 1 },
+    "Light Mode ✓": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Symbolic support labels (e.g. ✓, ◐, ✗) plus qualifiers; not a boolean column."
+    },
+    "Dark Mode ✓": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Symbolic support labels with many variants; not a boolean column."
+    },
+    "Performance": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Emoji/symbolic performance tier text (e.g. ⚡, ⚠); consider normalizing in a later PR."
+    },
+    "Accessibility": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Emoji-prefixed accessibility notes; heterogeneous strings."
+    },
+    "Mobile-Friendly": { "type": "string", "minLength": 1 },
+    "Conversion-Focused": { "type": "string", "minLength": 1 },
+    "Framework Compatibility": { "type": "string", "minLength": 1 },
+    "Era/Origin": { "type": "string", "minLength": 1 },
+    "Complexity": { "type": "string", "enum": ["High", "Low", "Medium"] },
+    "AI Prompt Keywords": { "type": "string", "minLength": 1 },
+    "CSS/Technical Keywords": { "type": "string", "minLength": 1 },
+    "Implementation Checklist": { "type": "string", "minLength": 1 },
+    "Design System Variables": { "type": "string", "minLength": 1 }
+  }
+}

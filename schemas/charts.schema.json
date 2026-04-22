@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:charts.row",
+  "title": "UI/UX Pro Max — charts.csv row",
+  "description": "One row of charts.csv. Color guidance often embeds hex in prose; kept as string.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Data Type",
+    "Keywords",
+    "Best Chart Type",
+    "Secondary Options",
+    "When to Use",
+    "When NOT to Use",
+    "Data Volume Threshold",
+    "Color Guidance",
+    "Accessibility Grade",
+    "Accessibility Notes",
+    "A11y Fallback",
+    "Library Recommendation",
+    "Interactive Level"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Data Type": { "type": "string", "minLength": 1 },
+    "Keywords": { "type": "string", "minLength": 1 },
+    "Best Chart Type": { "type": "string", "minLength": 1 },
+    "Secondary Options": { "type": "string", "minLength": 1 },
+    "When to Use": { "type": "string", "minLength": 1 },
+    "When NOT to Use": { "type": "string", "minLength": 1 },
+    "Data Volume Threshold": { "type": "string", "minLength": 1 },
+    "Color Guidance": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Prose; may include hex and opacity hints, not a single color token."
+    },
+    "Accessibility Grade": { "type": "string", "enum": ["AA", "AAA", "B", "C", "D"] },
+    "Accessibility Notes": { "type": "string", "minLength": 1 },
+    "A11y Fallback": { "type": "string", "minLength": 1 },
+    "Library Recommendation": { "type": "string", "minLength": 1 },
+    "Interactive Level": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Interaction affordances; many distinct labels. Tighten with enum in a follow-up if the set stabilizes."
+    }
+  }
+}

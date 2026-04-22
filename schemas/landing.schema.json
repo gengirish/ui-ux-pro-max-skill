@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:landing.row",
+  "title": "UI/UX Pro Max — landing.csv row",
+  "description": "One row of landing page pattern guidance. Color strategy cells mix prose and hex.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Pattern Name",
+    "Keywords",
+    "Section Order",
+    "Primary CTA Placement",
+    "Color Strategy",
+    "Recommended Effects",
+    "Conversion Optimization"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Pattern Name": { "type": "string", "minLength": 1 },
+    "Keywords": { "type": "string", "minLength": 1 },
+    "Section Order": { "type": "string", "minLength": 1 },
+    "Primary CTA Placement": { "type": "string", "minLength": 1 },
+    "Color Strategy": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text with embedded hex (e.g. #FAFAFA). Not a single color field."
+    },
+    "Recommended Effects": { "type": "string", "minLength": 1 },
+    "Conversion Optimization": { "type": "string", "minLength": 1 }
+  }
+}
