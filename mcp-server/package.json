@@ -1,0 +1,29 @@
+{
+  "name": "@uipro/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server exposing UI/UX Pro Max design intelligence",
+  "type": "module",
+  "bin": {
+    "uipro-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18.19"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.24.0"
+  }
+}
