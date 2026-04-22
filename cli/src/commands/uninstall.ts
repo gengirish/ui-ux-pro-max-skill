@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import prompts from 'prompts';
 import type { AIType } from '../types/index.js';
+type AIPlatform = Exclude<AIType, 'all'>;
 import { AI_TYPES, AI_FOLDERS } from '../types/index.js';
 import { detectAIType, getAITypeDescription } from '../utils/detect.js';
 import { logger } from '../utils/logger.js';
@@ -101,7 +102,8 @@ export async function uninstallCommand(options: UninstallOptions): Promise<void>
     if (aiType === 'all') {
       // Remove for all detected platforms
       for (const type of initialDetected) {
-        const removed = await removeSkillDir(baseDir, type);
+        if (type === 'all') continue;
+        const removed = await removeSkillDir(baseDir, type as AIPlatform);
         allRemoved.push(...removed);
       }
     } else {
