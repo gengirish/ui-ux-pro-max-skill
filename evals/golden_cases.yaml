@@ -1,0 +1,451 @@
+# v1 hand-curated: prompts lock BM25 to the expected Product Type.
+# style_band is wide (variance from styles.csv + mobile variants). See evals/README.md
+- id: saas_general
+  sector: SaaS
+  prompt: "B2B cloud subscription SaaS platform for team collaboration and billing"
+  expected:
+    ui_category_band: ["SaaS (General)", "B2B Service", "Productivity Tool"]
+    style_band:
+      - "Flat Design"
+      - "Glassmorphism"
+      - "Soft UI Evolution"
+      - "Minimalism & Swiss Style"
+      - "SaaS Mobile (High-Tech Boutique)"
+      - "Motion-Driven"
+      - "Vibrant & Block-based"
+    color_mood_includes_any: [championship, indigo, emerald, red, gold, cta, team, product, product, product]
+    typography_mood_includes_any: [enterprise, saas, b2b, professional, indigo, modern, approachable, legible]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: micro_saas
+  sector: Micro SaaS
+  prompt: "Indie micro SaaS for solo founders and niche B2B workflow automation"
+  expected:
+    ui_category_band: ["Micro SaaS", "SaaS (General)", "Productivity Tool"]
+    style_band:
+      - "Motion-Driven"
+      - "Vibrant & Block-based"
+      - "Flat Design"
+      - "Micro-interactions"
+      - "Glassmorphism"
+      - "Aurora UI"
+    color_mood_includes_any: [indigo, emerald, cta, primary, accent, success, product, team, team]
+    typography_mood_includes_any: [enterprise, saas, b2b, professional, indigo, modern, approachable, legible]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: fintech_crypto
+  sector: Fintech/Crypto
+  prompt: "DeFi wallet and crypto portfolio dashboard for trading and staking"
+  expected:
+    ui_category_band: ["Fintech/Crypto", "NFT/Web3 Platform", "Banking/Traditional Finance"]
+    style_band:
+      - "Minimalism & Swiss Style"
+      - "Trust & Authority"
+      - "Glassmorphism"
+      - "Dark Mode (OLED)"
+      - "Exaggerated Minimalism"
+      - "Bitcoin DeFi (Mobile)"
+      - "Cyberpunk UI"
+    color_mood_includes_any: [monochrome, blue, trust, fintech, dark, accent, defi, wallet, indigo, buy]
+    typography_mood_includes_any: [web3, bitcoin, defi, fintech, crypto, trustless, precision, dark, digital gold]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: banking
+  sector: Banking
+  prompt: "Local bank and credit union mobile app traditional finance checking savings"
+  expected:
+    ui_category_band: ["Banking/Traditional Finance", "Fintech/Crypto", "Insurance Platform"]
+    style_band:
+      - "Accessible & Ethical"
+      - "Minimalism & Swiss Style"
+      - "Trust & Authority"
+      - "Exaggerated Minimalism"
+      - "Sketch Hand-Drawn (Mobile)"
+      - "Dark Mode (OLED)"
+      - "Flat Design"
+    color_mood_includes_any: [trust, navy, premium, gold, savings, fintech, bank, finance, indigo, contrast]
+    typography_mood_includes_any: [enterprise, saas, b2b, professional, indigo, modern, approachable, legible]
+    forbidden_anti_patterns: ["ai purple/pink gradients"]
+  severity: HIGH
+
+- id: medical_clinic
+  sector: Medical Clinic
+  prompt: "Family medical clinic website for booking appointments and doctor profiles"
+  expected:
+    ui_category_band: ["Medical Clinic", "Healthcare App", "Dental Practice"]
+    style_band:
+      - "Accessible & Ethical"
+      - "Neumorphism"
+      - "Trust & Authority"
+      - "Flat Design"
+      - "Soft UI Evolution"
+    color_mood_includes_any: [medical, teal, health, green, trust, book, service, care, health, product]
+    typography_mood_includes_any: [medical, clean, accessible, professional, healthcare, trustworthy]
+    forbidden_anti_patterns: ["ai purple/pink gradients"]
+  severity: HIGH
+
+- id: mental_health
+  sector: Mental Health
+  prompt: "Mental health therapy app with private messaging and resource library"
+  expected:
+    ui_category_band: ["Mental Health App", "Healthcare App", "Educational App"]
+    style_band:
+      - "Neumorphism (Mobile)"
+      - "Neumorphism"
+      - "Soft UI Evolution"
+      - "Claymorphism"
+      - "Accessible & Ethical"
+    color_mood_includes_any: [calming, lavender, wellness, green, health, app, support, product, book, help]
+    typography_mood_includes_any: [calm, wellness, health, relaxing, natural, organic]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: ecommerce_general
+  sector: E-commerce General
+  prompt: "Fashion apparel retail ecommerce shop buy clothes online"
+  expected:
+    ui_category_band: ["E-commerce", "E-commerce Luxury", "Marketplace (P2P)"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Motion-Driven"
+      - "Aurora UI"
+      - "Glassmorphism"
+    color_mood_includes_any: [natural, green, floral, pink, retail, shop, product, product, app, look]
+    typography_mood_includes_any: [ecommerce, clean, shopping, product, retail, conversion]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: ecommerce_luxury
+  sector: Luxury E-commerce
+  prompt: "Luxury high-end fashion ecommerce for exclusive designer clothing and lookbooks"
+  expected:
+    ui_category_band: ["E-commerce Luxury", "E-commerce", "Luxury/Premium Brand"]
+    style_band:
+      - "Liquid Glass"
+      - "Glassmorphism"
+      - "3D & Hyperrealism"
+      - "Exaggerated Minimalism"
+      - "Aurora UI"
+    color_mood_includes_any: [navy, blue, high, contrast, luxury, look, lookbook, look, look, look]
+    typography_mood_includes_any: [luxury, high-end, fashion, elegant, refined, premium]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: beauty_spa
+  sector: Beauty/Spa
+  prompt: "Day spa and beauty wellness booking site for massage facials and packages"
+  expected:
+    ui_category_band: ["Beauty/Spa/Wellness Service", "Medical Clinic", "Luxury/Premium Brand"]
+    style_band:
+      - "Soft UI Evolution"
+      - "Neumorphism"
+      - "Glassmorphism"
+      - "Organic Biophilic"
+    color_mood_includes_any: [soft, pink, lavender, luxury, product, well, help, look, look, look]
+    typography_mood_includes_any: [calm, wellness, health, relaxing, natural, organic]
+    forbidden_anti_patterns: [neon]
+  severity: HIGH
+
+- id: restaurant
+  sector: Restaurant
+  prompt: "Italian restaurant website with online reservations and food menu photos"
+  expected:
+    ui_category_band: ["Restaurant/Food Service", "Bakery/Cafe", "Food Delivery / On-Demand"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Motion-Driven"
+      - "Claymorphism"
+    color_mood_includes_any: [appetizing, red, warm, gold, product, look, look, look, look, look]
+    typography_mood_includes_any: [restaurant, menu, culinary, elegant, foodie, hospitality]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: hotel
+  sector: Hotel
+  prompt: "Boutique hotel booking with room gallery and amenities for leisure travelers"
+  expected:
+    ui_category_band: ["Hotel/Hospitality", "Travel/Tourism Agency", "Real Estate/Property"]
+    style_band:
+      - "Liquid Glass"
+      - "Glassmorphism"
+      - "Soft UI Evolution"
+      - "Minimalism & Swiss Style"
+    color_mood_includes_any: [gallery, black, white, space, book, look, look, look, look, look]
+    typography_mood_includes_any: [saas, boutique, electric, warm, editorial, bold, premium, fintech, business, dual]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: legal
+  sector: Legal
+  prompt: "Law firm site for practice areas attorney bios and case consultation intake"
+  expected:
+    ui_category_band: ["Legal Services", "B2B Service", "Knowledge Base/Documentation"]
+    style_band:
+      - "Trust & Authority"
+      - "Minimalism & Swiss Style"
+      - "Accessible & Ethical"
+      - "Swiss Modernism 2.0"
+    color_mood_includes_any: [fresh, blue, smile, yellow, trust, look, look, look, look, look]
+    typography_mood_includes_any: [legal, professional, traditional, trustworthy, formal, authoritative]
+    forbidden_anti_patterns: ["ai purple/pink gradients"]
+  severity: HIGH
+
+- id: portfolio
+  sector: Portfolio
+  prompt: "Personal creative portfolio to showcase design projects and client case studies"
+  expected:
+    ui_category_band: ["Portfolio/Personal", "Creative Agency", "Design System/Component Library"]
+    style_band:
+      - "Motion-Driven"
+      - "Brutalism"
+      - "Aurora UI"
+      - "Exaggerated Minimalism"
+      - "Storytelling-Driven"
+    color_mood_includes_any: [monochrome, blue, contrast, work, work, work, work, work, work, work]
+    typography_mood_includes_any: [minimal, portfolio, designer, creative, clean, artistic]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: agency
+  sector: Agency
+  prompt: "Digital marketing agency website with services pricing and client results"
+  expected:
+    ui_category_band: ["Marketing Agency", "Creative Agency", "B2B Service"]
+    style_band:
+      - "Kinetic Brutalism (Mobile)"
+      - "Brutalism"
+      - "Motion-Driven"
+      - "Vibrant & Block-based"
+    color_mood_includes_any: [bold, pink, creative, cyan, product, work, work, work, work, work]
+    typography_mood_includes_any: [web3, bitcoin, defi, fintech, crypto, trustless, precision, dark, digital gold, luminescent]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: gaming
+  sector: Gaming
+  prompt: "Esports gaming platform for tournaments team profiles and live match scores"
+  expected:
+    ui_category_band: ["Gaming", "Sports Team/Club", "Social Media App"]
+    style_band:
+      - "Retro-Futurism"
+      - "3D & Hyperrealism"
+      - "Vibrant & Block-based"
+      - "Dark Mode (OLED)"
+      - "Cyberpunk UI"
+    color_mood_includes_any: [team, red, gold, app, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [gaming, bold, action, esports, competitive, energetic]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: music_streaming
+  sector: Music Streaming
+  prompt: "Music streaming app with playlists discover weekly and dark album art"
+  expected:
+    ui_category_band: ["Music Streaming", "Podcast Platform", "Video Streaming/OTT"]
+    style_band:
+      - "Dark Mode (OLED)"
+      - "Vibrant & Block-based"
+      - "Aurora UI"
+      - "Motion-Driven"
+    color_mood_includes_any: [dark, audio, play, green, product, fintech, look, look, look, look]
+    typography_mood_includes_any: [dark, cinematic, technical, precision, clean, premium, developer, professional, high-end, utility]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: habit_tracker
+  sector: Habit Tracker
+  prompt: "Daily habit tracker with streaks reminders and simple charts for goals"
+  expected:
+    ui_category_band: ["Habit Tracker", "Productivity Tool", "Fitness/Gym App"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Claymorphism"
+      - "Neubrutalism"
+    color_mood_includes_any: [streak, amber, habit, green, product, fintech, look, look, look, look]
+    typography_mood_includes_any: [neo brutalism, pop art, loud, bold, heavy, gen-z, cream, high contrast, mechanical, stickers]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: meditation
+  sector: Meditation
+  prompt: "Guided meditation and mindfulness app with sessions and sleep sounds"
+  expected:
+    ui_category_band: ["Meditation & Mindfulness", "Mental Health App", "Sleep Tracker"]
+    style_band:
+      - "Neumorphism"
+      - "Soft UI Evolution"
+      - "Aurora UI"
+    color_mood_includes_any: [calm, lavender, mindful, green, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [web3, bitcoin, defi, fintech, crypto, trustless, precision, dark, digital gold, accessible]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: web3_nft
+  sector: Web3/NFT
+  prompt: "NFT marketplace for digital collectibles with wallet connect and auctions"
+  expected:
+    ui_category_band: ["NFT/Web3 Platform", "Fintech/Crypto", "Creator Economy Platform"]
+    style_band:
+      - "Bitcoin DeFi (Mobile)"
+      - "Cyberpunk UI"
+      - "Glassmorphism"
+    color_mood_includes_any: [digital, indigo, buy, green, market, fintech, look, look, look, look]
+    typography_mood_includes_any: [web3, bitcoin, defi, fintech, crypto, trustless, precision, dark, digital gold]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: ai_chatbot
+  sector: AI/Chatbot Platform
+  prompt: "Enterprise AI chatbot platform for customer support with live chat widget"
+  expected:
+    ui_category_band: ["AI/Chatbot Platform", "Productivity Tool", "SaaS (General)"]
+    style_band:
+      - "AI-Native UI"
+      - "Zero Interface"
+      - "Minimalism & Swiss Style"
+    color_mood_includes_any: [ai, purple, cyan, interaction, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [material design 3, md3, android, google, tonal, friendly, rounded, accessible, adaptive]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: cybersecurity
+  sector: Cybersecurity Platform
+  prompt: "Cybersecurity operations platform for SOC threat detection and alerts"
+  expected:
+    ui_category_band: ["Cybersecurity Platform", "Developer Tool / IDE", "Financial Dashboard"]
+    style_band:
+      - "Cyberpunk UI"
+      - "Dark Mode (OLED)"
+      - "Neubrutalism"
+    color_mood_includes_any: [matrix, green, alert, red, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [flat, clean, system, bold, geometric, cross-platform, icon, minimal, functional, responsive]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: devtool
+  sector: Developer Tool
+  prompt: "Open source developer IDE extension marketplace with syntax and debugging"
+  expected:
+    ui_category_band: ["Developer Tool / IDE", "Design System/Component Library", "Knowledge Base/Documentation"]
+    style_band:
+      - "Dark Mode (OLED)"
+      - "Minimalism & Swiss Style"
+      - "Flat Design"
+      - "Cyberpunk UI"
+    color_mood_includes_any: [code, dark, run, green, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [modern, professional, clean, corporate, friendly, approachable]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: realestate
+  sector: Real Estate
+  prompt: "Real estate site for apartment and house listings with map search and virtual tours"
+  expected:
+    ui_category_band: ["Real Estate/Property", "Travel/Tourism Agency", "Hotel/Hospitality"]
+    style_band:
+      - "Glassmorphism"
+      - "Motion-Driven"
+      - "3D & Hyperrealism"
+    color_mood_includes_any: [trust, teal, professional, blue, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [real estate, luxury, elegant, sophisticated, property, premium]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: education
+  sector: Education
+  prompt: "University online course platform with video lessons quizzes and certificates e-learning"
+  expected:
+    ui_category_band: ["Online Course/E-learning", "Educational App", "Knowledge Base/Documentation"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Claymorphism"
+      - "Flat Design"
+    color_mood_includes_any: [progress, teal, achievement, orange, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [academic, old-school, university, research, serious, traditional]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: news_editorial
+  sector: News/Editorial
+  prompt: "Breaking news media site with categories paywall and fast article reading"
+  expected:
+    ui_category_band: ["News/Media Platform", "Magazine/Blog", "Newsletter Platform"]
+    style_band:
+      - "Exaggerated Minimalism"
+      - "Swiss Modernism 2.0"
+      - "Dark Mode (OLED)"
+    color_mood_includes_any: [breaking, red, link, blue, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [news, editorial, journalism, trustworthy, readable, informative]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: government
+  sector: Government
+  prompt: "Federal government citizen services portal benefits forms accessibility WCAG"
+  expected:
+    ui_category_band: ["Government/Public Service", "Non-profit/Charity", "Legal Services"]
+    style_band:
+      - "Accessible & Ethical"
+      - "Minimalism & Swiss Style"
+      - "Flat Design"
+    color_mood_includes_any: [high, contrast, navy, blue, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [accessible, readable, inclusive, wcag, dyslexia-friendly, clear]
+    forbidden_anti_patterns: ["ai purple/pink gradients"]
+  severity: HIGH
+
+- id: photography
+  sector: Photography
+  prompt: "Photography studio site for wedding portraits and client booking and galleries"
+  expected:
+    ui_category_band: ["Photography Studio", "Wedding/Event Planning", "Portfolio/Personal"]
+    style_band:
+      - "Motion-Driven"
+      - "Exaggerated Minimalism"
+    color_mood_includes_any: [pure, black, white, contrast, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [wedding, romance, elegant, script, invitation, feminine]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: recipe_cooking
+  sector: Recipe & Cooking
+  prompt: "Recipe and cooking app with step by step instructions timers and shopping list"
+  expected:
+    ui_category_band: ["Recipe & Cooking App", "Grocery & Shopping List", "Restaurant/Food Service"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Claymorphism (Mobile)"
+    color_mood_includes_any: [warm, terracotta, fresh, green, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [ecommerce, clean, shopping, product, retail, conversion]
+    forbidden_anti_patterns: []
+  severity: HIGH
+
+- id: insurance
+  sector: Insurance
+  prompt: "Auto insurance compare quotes policies and claims status for drivers"
+  expected:
+    ui_category_band: ["Insurance Platform", "Banking/Traditional Finance", "Fintech/Crypto"]
+    style_band:
+      - "Trust & Authority"
+      - "Accessible & Ethical"
+      - "Flat Design"
+    color_mood_includes_any: [security, blue, protected, green, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [financial, trustworthy, professional, corporate, banking, serious]
+    forbidden_anti_patterns: ["ai purple/pink gradients"]
+  severity: HIGH
+
+- id: food_delivery
+  sector: Food Delivery
+  prompt: "Food delivery on demand app with restaurant menus live tracking and driver ETA"
+  expected:
+    ui_category_band: ["Food Delivery / On-Demand", "Restaurant/Food Service", "Logistics/Delivery"]
+    style_band:
+      - "Vibrant & Block-based"
+      - "Motion-Driven"
+      - "Glassmorphism"
+    color_mood_includes_any: [appetizing, orange, trust, blue, fintech, look, look, look, look, look]
+    typography_mood_includes_any: [restaurant, menu, culinary, elegant, foodie, hospitality]
+    forbidden_anti_patterns: []
+  severity: HIGH
