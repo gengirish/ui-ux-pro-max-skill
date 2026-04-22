@@ -5,6 +5,7 @@ UI/UX Pro Max Core - BM25 search engine for UI/UX style guides
 """
 
 import csv
+import json
 import re
 from pathlib import Path
 from math import log
@@ -99,6 +100,50 @@ _STACK_COLS = {
 
 AVAILABLE_STACKS = list(STACK_CONFIG.keys())
 
+# ============ SYNONYMS (optional query expansion for BM25) ============
+def _load_synonym_map() -> dict:
+    p = DATA_DIR / "synonyms.json"
+    if not p.exists():
+        return {}
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+_SYNONYM_MAP: dict = _load_synonym_map()
+
+
+def expand_query_for_bm25(query: str, use_synonyms: bool) -> str:
+    """Tokenize, expand unigram and bigram synonym keys; return original + added terms (BM25 input)."""
+    if not use_synonyms or not _SYNONYM_MAP:
+        return query
+    q = query.strip()
+    if not q:
+        return q
+    low = q.lower()
+    tokens = re.findall(r"\b\w+\b", low) or re.sub(r"[^\w\s]", " ", low).split()
+    to_add: list[str] = []
+    seen: set = set()
+    for t in tokens:
+        if t in _SYNONYM_MAP:
+            for c in _SYNONYM_MAP[t]:
+                if c not in seen:
+                    to_add.append(c)
+                    seen.add(c)
+    for i in range(len(tokens) - 1):
+        bg = f"{tokens[i]} {tokens[i+1]}"
+        if bg in _SYNONYM_MAP:
+            for c in _SYNONYM_MAP[bg]:
+                if c not in seen:
+                    to_add.append(c)
+                    seen.add(c)
+    if not to_add:
+        return q
+    return q + " " + " ".join(to_add)
+
 
 # ============ BM25 IMPLEMENTATION ============
 class BM25:
@@ -138,18 +183,22 @@ class BM25:
         for word, freq in self.doc_freqs.items():
             self.idf[word] = log((self.N - freq + 0.5) / (freq + 0.5) + 1)
 
-    def score(self, query):
-        """Score all documents against query"""
+    def _doc_term_freqs(self, doc):
+        term_freqs = defaultdict(int)
+        for word in doc:
+            term_freqs[word] += 1
+        return term_freqs
+
+    def score_all(self, query):
+        """Per-document BM25 score (row index order, same as corpus)."""
+        if self.N == 0:
+            return []
         query_tokens = self.tokenize(query)
-        scores = []
-
+        out = [0.0] * self.N
         for idx, doc in enumerate(self.corpus):
-            score = 0
+            score = 0.0
             doc_len = self.doc_lengths[idx]
-            term_freqs = defaultdict(int)
-            for word in doc:
-                term_freqs[word] += 1
-
+            term_freqs = self._doc_term_freqs(doc)
             for token in query_tokens:
                 if token in self.idf:
                     tf = term_freqs[token]
@@ -157,10 +206,14 @@ class BM25:
                     numerator = tf * (self.k1 + 1)
                     denominator = tf + self.k1 * (1 - self.b + self.b * doc_len / self.avgdl)
                     score += idf * numerator / denominator
+            out[idx] = score
+        return out
 
-            scores.append((idx, score))
-
-        return sorted(scores, key=lambda x: x[1], reverse=True)
+    def score(self, query):
+        """Score all documents against query"""
+        s = self.score_all(query)
+        ranked = sorted(enumerate(s), key=lambda x: x[1], reverse=True)
+        return [(idx, sc) for idx, sc in ranked]
 
 
 # ============ SEARCH FUNCTIONS ============
@@ -195,6 +248,71 @@ def _search_csv(filepath, search_cols, output_cols, query, max_results):
     return results
 
 
+def hybrid_search(query, domain, max_results, alpha=0.5, use_synonyms=True, embedding_query=None):
+    """
+    BM25 (with optional synonym expansion for query text) + optional embedding cosine hybrid.
+    Embeddings use the original `embedding_query` (default: raw query) — not the synonym-expanded string.
+    """
+    config = CSV_CONFIG.get(domain, CSV_CONFIG["style"])
+    filepath = DATA_DIR / config["file"]
+    if not filepath.exists():
+        return []
+
+    data = _load_csv(filepath)
+    search_cols = config["search_cols"]
+    output_cols = config["output_cols"]
+    documents = [" ".join(str(row.get(col, "")) for col in search_cols) for row in data]
+
+    bm25 = BM25()
+    bm25.fit(documents)
+    bm25_q = expand_query_for_bm25(query, use_synonyms)
+    emb_q = query if embedding_query is None else embedding_query
+
+    s_bm = bm25.score_all(bm25_q)
+    n = len(s_bm)
+    if n == 0:
+        return []
+    max_bm = max(s_bm) if s_bm and max(s_bm) > 0 else 1.0
+    bm_norm = [s / max_bm for s in s_bm]
+
+    use_emb = False
+    cos_by_i: dict = {}
+    try:
+        from embeddings import embeddings_available, index_exists_for_domain, query_all_scores
+        if embeddings_available() and index_exists_for_domain(domain):
+            use_emb = True
+            for i, c in query_all_scores(domain, emb_q):
+                cos_by_i[i] = c
+    except Exception:
+        use_emb = False
+
+    combined = [0.0] * n
+    for i in range(n):
+        c = cos_by_i.get(i, 0.0) if use_emb else 0.0
+        if use_emb:
+            combined[i] = alpha * bm_norm[i] + (1.0 - alpha) * c
+        else:
+            combined[i] = bm_norm[i]
+
+    def row_dict(j: int) -> dict:
+        row = data[j]
+        return {col: row.get(col, "") for col in output_cols if col in row}
+
+    results = []
+    if use_emb:
+        order = sorted(range(n), key=lambda j: combined[j], reverse=True)
+        for j in order:
+            if len(results) >= max_results:
+                break
+            results.append(row_dict(j))
+    else:
+        top_slice = sorted(enumerate(s_bm), key=lambda x: x[1], reverse=True)[:max_results]
+        for j, sc in top_slice:
+            if sc > 0:
+                results.append(row_dict(j))
+    return results
+
+
 def detect_domain(query):
     """Auto-detect the most relevant domain from query"""
     query_lower = query.lower()
@@ -218,8 +336,8 @@ def detect_domain(query):
     return best if scores[best] > 0 else "style"
 
 
-def search(query, domain=None, max_results=MAX_RESULTS):
-    """Main search function with auto-domain detection"""
+def search(query, domain=None, max_results=MAX_RESULTS, alpha=0.5, use_synonyms=True):
+    """Main search function with auto-domain detection. Uses hybrid BM25 + optional embeddings (see hybrid_search)."""
     if domain is None:
         domain = detect_domain(query)
 
@@ -229,7 +347,9 @@ def search(query, domain=None, max_results=MAX_RESULTS):
     if not filepath.exists():
         return {"error": f"File not found: {filepath}", "domain": domain}
 
-    results = _search_csv(filepath, config["search_cols"], config["output_cols"], query, max_results)
+    results = hybrid_search(
+        query, domain, max_results, alpha=alpha, use_synonyms=use_synonyms, embedding_query=query
+    )
 
     return {
         "domain": domain,
