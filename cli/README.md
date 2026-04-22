@@ -36,6 +36,28 @@ uipro versions              # List available versions
 uipro update                # Update to latest version
 ```
 
+## Auditing generated UI
+
+`uipro audit` walks source files in a directory (default: current) and flags common anti-patterns in HTML/JSX/Vue/Svelte/Astro. Use it on generated or hand-written UI to catch “AI slop” gradients, missing focus states, and contrast issues.
+
+```bash
+# Scan the current project
+uipro audit
+
+# Scan a specific folder
+uipro audit ./src/components
+
+# JSON for CI
+uipro audit --json
+
+# Only HIGH-severity (accessibility) findings
+uipro audit --severity HIGH
+```
+
+**Exit code:** `0` if there are no HIGH-severity issues; `1` if any HIGH rule matches (e.g. contrast, focus, or the purple–pink gradient rule), regardless of `--severity` filtering. Rules cover emoji-as-icons, `cursor-pointer` on clickables, fixed pixel type, Tailwind `bg-` + `text-` contrast (embedded palette, WCAG AA 4.5:1), and more. See the implementation under `src/audit/`.
+
+**Telemetry:** `uipro telemetry` manages a local opt-in in `~/.config/uipro/`. This package does not send network requests yet; a future release will add the actual endpoint.
+
 ## How It Works
 
 By default, `uipro init` tries to download the latest release from GitHub to ensure you get the most up-to-date version. If the download fails (network error, rate limit), it automatically falls back to the bundled assets included in the CLI package.
@@ -53,6 +75,8 @@ bun run src/index.ts --help
 
 # Build
 bun run build
+
+# If `bun` is not available: `npm install` then `npx tsc` (compiles to `dist/` the same as the bun build for this project).
 
 # Link for local testing
 bun link

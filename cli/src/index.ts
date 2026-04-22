@@ -4,10 +4,13 @@ import { Command } from 'commander';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { auditCommand } from './commands/audit.js';
+import { doctorCommand } from './commands/doctor.js';
 import { initCommand } from './commands/init.js';
 import { versionsCommand } from './commands/versions.js';
 import { updateCommand } from './commands/update.js';
 import { uninstallCommand } from './commands/uninstall.js';
+import { registerTelemetryCommand } from './commands/telemetry.js';
 import type { AIType } from './types/index.js';
 import { AI_TYPES } from './types/index.js';
 
@@ -21,6 +24,30 @@ program
   .name('uipro')
   .description('CLI to install UI/UX Pro Max skill for AI coding assistants')
   .version(pkg.version);
+
+program
+  .command('audit [path]')
+  .description('Lint generated UI files against the UI/UX Pro Max anti-pattern catalog')
+  .option('--json', 'Output JSON report')
+  .option(
+    '--severity <level>',
+    'Only show violations at or above this level (LOW, MEDIUM, HIGH)',
+    'LOW'
+  )
+  .action(async (pathArg: string | undefined, options: { json?: boolean; severity: string }) => {
+    await auditCommand({
+      path: pathArg ?? '.',
+      json: options.json,
+      severity: options.severity as 'LOW' | 'MEDIUM' | 'HIGH',
+    });
+  });
+
+program
+  .command('doctor')
+  .description('Diagnose common environment issues for UI/UX Pro Max')
+  .action(async () => {
+    await doctorCommand();
+  });
 
 program
   .command('init')
@@ -79,5 +106,7 @@ program
       global: options.global,
     });
   });
+
+registerTelemetryCommand(program);
 
 program.parse();
