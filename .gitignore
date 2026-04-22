@@ -51,3 +51,7 @@ out/
 .claude/settings.local.json
 .claude/session-state/
 ui-ux-pro-max-website/*
+
+# Eval reports
+evals/last_run.json
+evals/__pycache__/
