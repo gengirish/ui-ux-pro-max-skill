@@ -19,6 +19,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 from core import search, DATA_DIR
+from tokens import write_token_files
 
 
 # ============ CONFIGURATION ============
@@ -530,7 +531,8 @@ def format_markdown(design_system: dict) -> str:
 
 # ============ MAIN ENTRY POINT ============
 def generate_design_system(query: str, project_name: str = None, output_format: str = "ascii", 
-                           persist: bool = False, page: str = None, output_dir: str = None) -> str:
+                           persist: bool = False, page: str = None, output_dir: str = None,
+                           emit_tokens: bool = False) -> str:
     """
     Main entry point for design system generation.
 
@@ -541,6 +543,9 @@ def generate_design_system(query: str, project_name: str = None, output_format: 
         persist: If True, save design system to design-system/ folder
         page: Optional page name for page-specific override file
         output_dir: Optional output directory (defaults to current working directory)
+        emit_tokens: If True (without persist), write tokens.css, tailwind.config.tokens.js,
+            tokens.json, and design-system.json under design-system/<project>/. If persist is True,
+            those files are always written alongside MASTER.md; emit_tokens is then redundant.
 
     Returns:
         Formatted design system string
@@ -551,6 +556,13 @@ def generate_design_system(query: str, project_name: str = None, output_format: 
     # Persist to files if requested
     if persist:
         persist_design_system(design_system, page, output_dir, query)
+    elif emit_tokens:
+        base_dir = Path(output_dir) if output_dir else Path.cwd()
+        proj = design_system.get("project_name") or "default"
+        project_slug = str(proj).lower().replace(" ", "-")
+        token_dir = base_dir / "design-system" / project_slug
+        token_dir.mkdir(parents=True, exist_ok=True)
+        write_token_files(design_system, str(token_dir))
 
     if output_format == "markdown":
         return format_markdown(design_system)
@@ -593,6 +605,10 @@ def persist_design_system(design_system: dict, page: str = None, output_dir: str
     with open(master_file, 'w', encoding='utf-8') as f:
         f.write(master_content)
     created_files.append(str(master_file))
+
+    for p in write_token_files(design_system, str(design_system_dir)):
+        if p not in created_files:
+            created_files.append(p)
     
     # If page is specified, create page override file with intelligent content
     if page:
