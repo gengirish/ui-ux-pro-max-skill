@@ -82,6 +82,8 @@ When modifying files:
    cp -r src/ui-ux-pro-max/templates/* cli/assets/templates/
    ```
 
+   **Design token emission:** Generators for machine-readable design tokens (CSS custom properties, Tailwind extend, W3C DTCG JSON, `design-system.json`) live in `src/ui-ux-pro-max/scripts/tokens.py`. When adding a new style to `data/styles.csv`, add a matching key to `STYLE_TOKEN_DEFAULTS` in `tokens.py` (use the exact **Style Category** spelling from the CSV); otherwise the generic `DEFAULT_TOKENS` fallback applies.
+
 4. **Reference Folders** - No manual sync needed. The CLI generates these from templates during `uipro init`.
 
 ## Prerequisites
