@@ -68,6 +68,12 @@ if __name__ == "__main__":
     parser.add_argument("--persist", action="store_true", help="Save design system to design-system/MASTER.md (creates hierarchical structure)")
     parser.add_argument("--page", type=str, default=None, help="Create page-specific override file in design-system/pages/")
     parser.add_argument("--output-dir", "-o", type=str, default=None, help="Output directory for persisted files (default: current directory)")
+    parser.add_argument(
+        "--alpha", type=float, default=0.5, help="BM25 / embedding mix when UIPRO_EMBEDDINGS=on (0..1, default 0.5)"
+    )
+    parser.add_argument(
+        "--no-synonyms", action="store_true", help="Disable synonym map expansion (debugging)"
+    )
 
     args = parser.parse_args()
 
@@ -106,7 +112,12 @@ if __name__ == "__main__":
             print(format_output(result))
     # Domain search
     else:
-        result = search(args.query, args.domain, args.max_results)
+        if not (0.0 <= args.alpha <= 1.0):
+            print("Error: --alpha must be between 0 and 1", file=sys.stderr)
+            sys.exit(2)
+        result = search(
+            args.query, args.domain, args.max_results, alpha=args.alpha, use_synonyms=not args.no_synonyms
+        )
         if args.json:
             import json
             print(json.dumps(result, indent=2, ensure_ascii=False))
