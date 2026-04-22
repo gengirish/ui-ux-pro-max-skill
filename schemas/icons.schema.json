@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:icons.row",
+  "title": "UI/UX Pro Max — icons.csv row",
+  "description": "One row of icons.csv. Current dataset only uses a single style label; kept as string for forward compatibility.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Category",
+    "Icon Name",
+    "Keywords",
+    "Library",
+    "Import Code",
+    "Usage",
+    "Best For",
+    "Style"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Category": { "type": "string", "minLength": 1 },
+    "Icon Name": { "type": "string", "minLength": 1 },
+    "Keywords": { "type": "string", "minLength": 1 },
+    "Library": { "type": "string", "minLength": 1 },
+    "Import Code": { "type": "string", "minLength": 1 },
+    "Usage": { "type": "string", "minLength": 1 },
+    "Best For": { "type": "string", "minLength": 1 },
+    "Style": {
+      "type": "string",
+      "minLength": 1,
+      "description": "In current data, only 'Outline' appears; if new styles are added, prefer extending enum in schema."
+    }
+  }
+}

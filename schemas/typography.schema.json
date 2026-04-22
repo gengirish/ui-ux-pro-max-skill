@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:typography.row",
+  "title": "UI/UX Pro Max — typography.csv row",
+  "description": "One row of typography.csv. Includes Google Fonts URLs and import snippets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Font Pairing Name",
+    "Category",
+    "Heading Font",
+    "Body Font",
+    "Mood/Style Keywords",
+    "Best For",
+    "Google Fonts URL",
+    "CSS Import",
+    "Tailwind Config",
+    "Notes"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Font Pairing Name": { "type": "string", "minLength": 1 },
+    "Category": { "type": "string", "minLength": 1 },
+    "Heading Font": { "type": "string", "minLength": 1 },
+    "Body Font": { "type": "string", "minLength": 1 },
+    "Mood/Style Keywords": { "type": "string", "minLength": 1 },
+    "Best For": { "type": "string", "minLength": 1 },
+    "Google Fonts URL": { "type": "string", "minLength": 1, "description": "Full https://fonts.google.com/… URL" },
+    "CSS Import": { "type": "string", "minLength": 1 },
+    "Tailwind Config": { "type": "string", "minLength": 1 },
+    "Notes": { "type": "string", "minLength": 1 }
+  }
+}

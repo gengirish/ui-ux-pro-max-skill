@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:colors.row",
+  "title": "UI/UX Pro Max — colors.csv row",
+  "description": "One row of colors.csv. Token cells are 3- or 6-digit hex, or rgba() for semi-transparent borders. Notes are free text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Product Type",
+    "Primary",
+    "On Primary",
+    "Secondary",
+    "On Secondary",
+    "Accent",
+    "On Accent",
+    "Background",
+    "Foreground",
+    "Card",
+    "Card Foreground",
+    "Muted",
+    "Muted Foreground",
+    "Border",
+    "Destructive",
+    "On Destructive",
+    "Ring",
+    "Notes"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Product Type": { "type": "string", "minLength": 1 },
+    "Primary": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$",
+      "description": "3/6-digit hex, or rgba() for token-level transparency (same pattern for all swatches)."
+    },
+    "On Primary": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Secondary": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "On Secondary": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Accent": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "On Accent": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Background": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Foreground": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Card": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Card Foreground": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Muted": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Muted Foreground": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Border": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$",
+      "description": "Some dark-mode palettes use rgba borders instead of pure hex."
+    },
+    "Destructive": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "On Destructive": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Ring": {
+      "type": "string",
+      "pattern": "^(?:#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})|rgba\\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(?:0?\\.[0-9]+|1|1\\.0)\\))$"
+    },
+    "Notes": { "type": "string", "minLength": 1, "description": "Free text; may include bracketed references to other hex values." }
+  }
+}

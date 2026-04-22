@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:ui-reasoning.row",
+  "title": "UI/UX Pro Max — ui-reasoning.csv row",
+  "description": "One row of ui-reasoning.csv. Severity uses uppercased levels specific to this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "UI_Category",
+    "Recommended_Pattern",
+    "Style_Priority",
+    "Color_Mood",
+    "Typography_Mood",
+    "Key_Effects",
+    "Decision_Rules",
+    "Anti_Patterns",
+    "Severity"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "UI_Category": { "type": "string", "minLength": 1 },
+    "Recommended_Pattern": { "type": "string", "minLength": 1 },
+    "Style_Priority": { "type": "string", "minLength": 1 },
+    "Color_Mood": { "type": "string", "minLength": 1 },
+    "Typography_Mood": { "type": "string", "minLength": 1 },
+    "Key_Effects": { "type": "string", "minLength": 1 },
+    "Decision_Rules": { "type": "string", "minLength": 1, "description": "Mini JSON or structured text embedded in CSV quotes." },
+    "Anti_Patterns": { "type": "string", "minLength": 1 },
+    "Severity": { "type": "string", "enum": ["HIGH", "MEDIUM"] }
+  }
+}

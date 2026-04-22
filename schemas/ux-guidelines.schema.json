@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ui-ux-pro-max:ux-guidelines.row",
+  "title": "UI/UX Pro Max — ux-guidelines.csv row",
+  "description": "One row of ux-guidelines.csv. Severity is title case (differs from ui-reasoning).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "No",
+    "Category",
+    "Issue",
+    "Platform",
+    "Description",
+    "Do",
+    "Don't",
+    "Code Example Good",
+    "Code Example Bad",
+    "Severity"
+  ],
+  "properties": {
+    "No": { "type": "integer", "minimum": 1 },
+    "Category": { "type": "string", "minLength": 1 },
+    "Issue": { "type": "string", "minLength": 1 },
+    "Platform": { "type": "string", "minLength": 1 },
+    "Description": { "type": "string", "minLength": 1 },
+    "Do": { "type": "string", "minLength": 1 },
+    "Don't": { "type": "string", "minLength": 1 },
+    "Code Example Good": { "type": "string", "minLength": 1 },
+    "Code Example Bad": { "type": "string", "minLength": 1 },
+    "Severity": { "type": "string", "enum": ["High", "Low", "Medium"] }
+  }
+}
