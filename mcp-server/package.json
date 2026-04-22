@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "test": "node --test --import tsx test/smoke.test.ts",
     "prepublishOnly": "npm run build"
   },
   "engines": {
