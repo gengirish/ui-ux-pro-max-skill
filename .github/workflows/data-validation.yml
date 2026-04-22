@@ -1,0 +1,22 @@
+name: Data validation
+
+on:
+  pull_request:
+    paths:
+      - "**/*.csv"
+      - "schemas/**"
+      - "tools/validate_csvs.py"
+
+jobs:
+  validate-csvs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate CSVs against JSON Schemas
+        run: python tools/validate_csvs.py --strict
