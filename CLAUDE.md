@@ -27,16 +27,34 @@ python3 src/ui-ux-pro-max/scripts/search.py "<query>" --stack <stack>
 ```
 Available stacks: `html-tailwind` (default), `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
 
+## Retrieval architecture (search)
+
+- **BM25** is always used for every domain table (styles, products, colors, etc.): the query is tokenized and scored against the CSV’s search columns.
+- **Synonyms** — `data/synonyms.json` can expand the **BM25** query (user phrasing → terms that also appear in the CSVs). The original string is still what gets embedded when embeddings are enabled, so long-tail wording helps lexical match without over-expanding the vector query.
+- **Embeddings** are **opt in** via `UIPRO_EMBEDDINGS=on` and optional `pip install sentence-transformers numpy`. When off (default, including CI), embedding helpers are unused and the rank is BM25-only (plus synonyms). When on, pre-built vectors under `~/.cache/uipro/embeddings/` mix with BM25 by `--alpha` (default `0.5`) in `search.py`.
+- **One-time power-user setup** (dense retrieval):
+
+  ```bash
+  set UIPRO_EMBEDDINGS=on
+  pip install sentence-transformers numpy
+  python src/ui-ux-pro-max/scripts/build_embeddings.py
+  ```
+
+  See `docs/retrieval.md` for end-user documentation.
+
 ## Architecture
 
 ```
 src/ui-ux-pro-max/                # Source of Truth
 ├── data/                         # Canonical CSV databases
 │   ├── products.csv, styles.csv, colors.csv, typography.csv, ...
+│   │   (plus synonyms.json — BM25 query expansion map)
 │   └── stacks/                   # Stack-specific guidelines
 ├── scripts/
 │   ├── search.py                 # CLI entry point
-│   ├── core.py                   # BM25 + regex hybrid search engine
+│   ├── core.py                   # BM25 + optional hybrid embeddings + synonym expansion
+│   ├── embeddings.py             # Opt-in sentence-transformer index (UIPRO_EMBEDDINGS)
+│   ├── build_embeddings.py      # One-time index build for all CSV tables
 │   └── design_system.py          # Design system generation
 └── templates/
     ├── base/                     # Base templates (skill-content.md, quick-reference.md)
